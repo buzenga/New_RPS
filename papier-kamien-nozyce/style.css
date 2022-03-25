@@ -1,0 +1,360 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: 'Bangers', cursive;
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(29, 29, 28, 0.863)), to(rgba(29, 29, 28, 0.863))), url(images/background.jpg);
+  background-image: linear-gradient(to right, rgba(29, 29, 28, 0.863), rgba(29, 29, 28, 0.863)), url(images/background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  font-family: 'Pacifico', cursive;
+  left: 50%;
+  top: 0.8em;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  font-size: 3em;
+  color: azure;
+  position: absolute;
+}
+
+.player_won {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2em;
+  display: none;
+}
+
+.player_won h1 {
+  font-size: 5rem;
+  color: #248a24;
+  text-shadow: 0 0 1rem #248a24;
+}
+
+.player_won button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+.player_won .start_new {
+  border: 3px solid;
+  padding: 0.5em;
+  border-radius: 2em;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.player_won .start_new:hover, .player_won .start:active {
+  background-color: lime;
+  border-color: pink;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.computer_won {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2em;
+  display: none;
+}
+
+.computer_won h1 {
+  font-size: 5rem;
+  color: #8a2424;
+  text-shadow: 0 0 1rem #8a2424;
+}
+
+.computer_won button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+.computer_won .start_new {
+  border: 3px solid;
+  padding: 0.5em;
+  border-radius: 2em;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.computer_won .start_new:hover, .computer_won .start:active {
+  background-color: lime;
+  border-color: pink;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.pre_game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 3em;
+}
+
+.pre_game button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3em;
+}
+
+.pre_game .sex_buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+}
+
+.pre_game .sex_buttons .sex {
+  width: 6em;
+  border: 2px solid;
+  border-radius: 1em;
+  padding: .3em;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.pre_game .sex_buttons .male:hover, .pre_game .sex_buttons .male:focus {
+  background-color: blue;
+  border-color: blue;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.pre_game .sex_buttons .female:hover, .pre_game .sex_buttons .female:focus {
+  background-color: pink;
+  border-color: pink;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.pre_game .start {
+  border: 3px solid;
+  padding: 0.5em;
+  border-radius: 2em;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+  visibility: hidden;
+}
+
+.pre_game .start:hover, .pre_game .start:active {
+  background-color: lime;
+  border-color: pink;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.game {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vh;
+  color: white;
+  font-size: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.game .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 3em;
+}
+
+.game .icons .computer_icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+}
+
+.game .icons .computer_icon .avatar {
+  content: url(images/computer.png);
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.game .icons .computer_icon .chosen_figure_computer {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.game .icons .player_icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.game .icons .player_icon .avatar {
+  content: url(images/nobody.png);
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.game .icons .player_icon .chosen_figure_player {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.game .icons .win {
+  border: 3px solid #27b427;
+  border-radius: .5em;
+  -webkit-box-shadow: 0 0 1rem #27b427;
+          box-shadow: 0 0 1rem #27b427;
+}
+
+.game .icons .lose {
+  border: 3px solid #b42727;
+  border-radius: .5em;
+  -webkit-box-shadow: 0 0 1rem #b42727;
+          box-shadow: 0 0 1rem #b42727;
+}
+
+.game .figures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: 1em;
+  gap: 2em;
+}
+
+.game .figures .fig {
+  cursor: pointer;
+  padding: 0.2em;
+  border: 3px solid black;
+  border-radius: .5em;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.game .figures .fig:hover {
+  border: 3px solid #2729b4;
+  border-radius: .5em;
+  -webkit-box-shadow: 0 0 1rem #2729b4;
+          box-shadow: 0 0 1rem #2729b4;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.game .figures .rock {
+  content: url(images/rock.png);
+}
+
+.game .figures .paper {
+  content: url(images/paper.png);
+}
+
+.game .figures .scissors {
+  content: url(images/scissors.png);
+}
+
+@media only screen and (max-width: 800px) {
+  header {
+    font-size: 1.5em;
+  }
+  .game .icons {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .game .icons .computer_icon .avatar {
+    width: 50%;
+    height: 50%;
+  }
+  .game .icons .player_icon .avatar {
+    width: 50%;
+    height: 50%;
+  }
+}
+/*# sourceMappingURL=style.css.map */
