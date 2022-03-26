@@ -24,12 +24,17 @@ let playerFigure = '';
 let round = 1;
 let insideFunctionResult =[];
 
+let scoreTimer = null;
+let initializeDisplayTimer = null;
+
 // button actions
 startButton.addEventListener('click', () => {
  
    preGame.style.display = 'none';
+   playerWon.style.display = 'none';
+   computerWon.style.display = 'none';
    game.style.display = 'flex';
-   fullGame();
+   gameStart();
 })
 window.addEventListener("load", () => {
    startButton.style.visibility = "hidden";
@@ -50,151 +55,75 @@ restartGameButtons.forEach(button => button.addEventListener("click", () => {
    playerWon.style.display = "none";
    computerWon.style.display = "none";
    preGame.style.display = "flex";
-   window.location.reload();
+   startButton.style.visibility = "hidden";
+   playerScore = 0;
+   computerScore = 0;
+   round = 1;
 }))
 
 
 
 
-functions
-function fullGame(computerFigure,playerFigure) {
+// functions
+// -------------------------------------------------------------
+function gameStart () {
    playerScore = 0;
    computerScore = 0;
-   computerFigure = '';
-   playerFigure = '';
+   round = 1;
 
-   startButton.style.visibility = "hidden";
-
-   playerChosenDisplay.style.content = "none";
-   computerChosenDisplay.style.content = "none";
-   playerChosenDisplay.classList.remove("win", "lose");
-   computerChosenDisplay.classList.remove("win", "lose");
-
-   // let round = 1;
-
-   roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
-
-   figureButtons.forEach(figureButton => figureButton.addEventListener('click', (e) => {
-      playerFigure = e.target.id
-      playerChosenDisplay.classList.remove("win", "lose");
-      computerChosenDisplay.classList.remove("win", "lose");
-
-      if (playerFigure == 'rock') {
-         playerChosenDisplay.style.content = "url(images/rock.png)";
-         round++;
-      }
-      if (playerFigure == 'paper') {
-         playerChosenDisplay.style.content = "url(images/paper.png)";
-         round++;
-      }
-      if (playerFigure == 'scissors') {
-         playerChosenDisplay.style.content = "url(images/scissors.png)";
-         round++;
-      }
-      computerFigure = randomComputerPick();
-
-      if ((playerFigure == "rock" && computerFigure == "scissors") ||
-      (playerFigure == "paper" && computerFigure == "rock") ||
-      (playerFigure == "scissors" && computerFigure =="paper")) {
-
-         playerChosenDisplay.classList.add("win");
-         computerChosenDisplay.classList.add("lose");
-
-         announcement.innerHTML = "You win!";
-
-         playerScore += 1;
-
-         roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
-      } else if ((computerFigure == "rock" && playerFigure == "scissors") ||
-      (computerFigure == "paper" && playerFigure == "rock") ||
-      (computerFigure == "scissors" && playerFigure =="paper")) {
-        
-         computerChosenDisplay.classList.add("win");
-         playerChosenDisplay.classList.add("lose");
-
-         announcement.innerHTML = "You lose!";
-
-         computerScore += 1;
-
-         roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
-      } else {
-
-         announcement.innerHTML = "It's a draw...";
-        
-         roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
-      }
-      console.log(computerScore)
-      console.log(playerScore)
-      // console.log('runda ' + round) tututuututututututututu
-
-
-      if (playerScore == 5) {
-         game.style.display = 'none';
-         playerWon.style.display = 'flex';
-         playerAvatar.style.content = 'url(images/nobody.png)';
-         return;
-      }
-      if (computerScore == 5) {
-         game.style.display = 'none';
-         computerWon.style.display = 'flex';
-         playerAvatar.style.content = 'url(images/nobody.png)';
-         return;
-      }
-   }))
-
+   roundDisplay.innerHTML = `Round: ${round} <br/> Computer->  ${computerScore} : ${playerScore} <-You`;
+   initializeDisplay();
+   
+      singleGame()
 
 }
-// function gameStart () {
-//    // insideFunctionResult = []
-   
-   
-//       singleGame()
-   
-//       //    if (playerScore == 5) {
-//       //    game.style.display = 'none';
-//       //    playerWon.style.display = 'flex';
-//       //    playerAvatar.style.content = 'url(images/nobody.png)';
-//       //    return;
-//       // }
-//       // if (computerScore == 5) {
-//       //    game.style.display = 'none';
-//       //    computerWon.style.display = 'flex';
-//       //    playerAvatar.style.content = 'url(images/nobody.png)';
-//       //    return;
-//       // }
+// ------------------------------------------------------
+function singleGame(){
+   let figureChoice = 0
 
-// }
-// function singleGame(){
-//    let figureChoice = 0
+   if (playerScore >= 5) {
+      game.style.display = 'none';
+      playerWon.style.display = 'flex';
+      playerAvatar.style.content = 'url(images/nobody.png)';
+      return;
+   }
+   if (computerScore >= 5) {
+      game.style.display = 'none';
+      computerWon.style.display = 'flex';
+      playerAvatar.style.content = 'url(images/nobody.png)';
+      return;
+   }
 
-//    let insideFunction =figureButtons.forEach(figureButton => {
-//    figureButton.addEventListener('click', function handler (e) {
-//       figureButton.removeEventListener('click', handler);
+   let insideFunction =figureButtons.forEach(figureButton => {
+   figureButton.addEventListener('click', function handler (e) {
+      figureButton.removeEventListener('click', handler);
 
-//          //protection from multiplying choices
-//             if (figureChoice > 0) return;
-//          //further loop
-//       initializeDisplay();
-//       playerFigure = e.target.id;
-//       setPlayerDisplay();
-//       computerFigure = randomComputerPick();
-//       getResult();
-//          figureChoice++;
+         //protection from multiplying choices
+            if (figureChoice > 0) return;
+         //further loop
+
+      clearScore();
+      clearDisplay();
+      playerFigure = e.target.id;
+      setPlayerDisplay();
+      computerFigure = randomComputerPick();
+      getResult();
+      // setTimeout(initializeDisplay,800);
+      // setTimeout(clearScore,800);
+         figureChoice++;
          
-//          insideFunctionResult[0] = playerScore;
-//          insideFunctionResult[1] = computerScore;
+         // insideFunctionResult[0] = playerScore;
+         // insideFunctionResult[1] = computerScore;
+      singleGame();
+         return;
+      });
 
-//          return;
-//       });
-
-//    }
-//    );
-// }
+   }
+   );
+}
 
 // ----------------------------------------------
 function check () {
-   // insideFunctionResult[0] = "cos";
-   // insideFunctionResult[1] = 'cos innego';
    console.log("punkty gracza: " + playerScore);
    console.log(insideFunctionResult)
 }
@@ -219,24 +148,43 @@ function getResult () {
    if ((playerFigure == "rock" && computerFigure == "scissors") ||
     (playerFigure == "paper" && computerFigure == "rock") ||
     (playerFigure == "scissors" && computerFigure =="paper")) {
+// ?????????????????????????????????????????????????????????????????
+      playerChosenDisplay.classList.remove("win", "lose");
+      computerChosenDisplay.classList.remove("win", "lose"); 
+// ??????????????????????????????????????????????????????????????????????????
       playerChosenDisplay.classList.add("win");
       computerChosenDisplay.classList.add("lose");
-      announcement.innerHTML = "You win!";
+
+      // announcement.innerHTML = "You win!";
+      announcement.innerHTML = `${randomWinnerText()}`;
+
       playerScore += 1;
-      roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
+      roundDisplay.innerHTML = `Round: ${round} <br/> Computer->  ${computerScore} : ${playerScore} <-You`;
 
    } else if ((computerFigure == "rock" && playerFigure == "scissors") ||
    (computerFigure == "paper" && playerFigure == "rock") ||
    (computerFigure == "scissors" && playerFigure =="paper")) {
+// ???????????????????????????????????????????????????????????????????????????????
+playerChosenDisplay.classList.remove("win", "lose");
+computerChosenDisplay.classList.remove("win", "lose"); 
+// ?????????????????????????????????????????????????????????????????????????????????
+
       computerChosenDisplay.classList.add("win");
       playerChosenDisplay.classList.add("lose");
-      announcement.innerHTML = "You lose!";
+
+      // announcement.innerHTML = "You lose!";
+      announcement.innerHTML = `${randomLoserText()}`;
+
       computerScore += 1;
-      roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
+      roundDisplay.innerHTML = `Round: ${round} <br/> Computer->  ${computerScore} : ${playerScore} <-You`;
 
    } else {
+      // ?????????????????????????????????????????????????????????????
+      playerChosenDisplay.classList.remove("win", "lose");
+      computerChosenDisplay.classList.remove("win", "lose"); 
+      // ??????????????????????????????????????????????????????????????????????
       announcement.innerHTML = "It's a draw...";  
-      roundDisplay.innerHTML = `Round: ${round} | Computer->  ${computerScore} : ${playerScore} <-You`;
+      roundDisplay.innerHTML = `Round: ${round} <br/> Computer->  ${computerScore} : ${playerScore} <-You`;
    }
 
 }
@@ -270,4 +218,40 @@ function initializeDisplay() {
    return;
 }
 
+function startScoreTimer () {
+   scoreTimer = window.setTimeout(function() {
+      announcement.innerHTML = "";
+   }, 1000);
+ }
+
+function clearScore () {
+   clearTimeout(scoreTimer);
+   startScoreTimer();
+}
+
+function startinitializeDisplayTimer () {
+   initializeDisplayTimer = window.setTimeout(function() {
+      playerChosenDisplay.style.content = "none";
+      computerChosenDisplay.style.content = "none";
+      playerChosenDisplay.classList.remove("win", "lose");
+      computerChosenDisplay.classList.remove("win", "lose"); 
+   }, 1000)
+}
+
+function clearDisplay () {
+   clearTimeout(initializeDisplayTimer);
+   startinitializeDisplayTimer();
+}
+
+
+function randomWinnerText () {
+   const arr = ["You did it", "Congratz!!!", "You win",];
+   ranNum = Math.floor(Math.random() * 3);
+   return arr[ranNum];
+}
+function randomLoserText () {
+   const arr = ["That's a pitty", "You lose", "Too bad", ":("];
+   ranNum = Math.floor(Math.random() * 4);
+   return arr[ranNum];
+}
 
